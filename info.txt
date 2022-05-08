@@ -1,0 +1,45 @@
+To connect the parent and nested component, 
+you’ll use the rest and spread operators to pass unused props
+from the parent to the child without the parent needing to be aware of the
+names or types of the props.
+
+En App.js paso los props (argumentos), que traen la info de data.js,
+al componente AnimalCard.js que toma esos props y crea el contenido.
+
+React is designed to be flexible, so when you are thinking about how to
+convert data, you have a few different options:
+- You can create a function inside the component that converts the text
+  to an emoji.
+- You can create a function and store it in a file outside the component
+  so that you can reuse the logic across different components.
+- You can create a separate component that converts the text to an emoji.
+
+To avoid premature abstraction and complexity, you should use the first option
+to start. If you find yourself wanting to reuse logic, you can pull the function
+out separately from the component. The third option is best if you want to
+have a reusable piece that includes the logic and the markup, or that you
+want to isolate to use across the application.
+
+Creamos el componente AnimalDetails.js, que tiene la funcion para convertir
+comida en emoji, y lo utilizamos en el componente AnimalCard.js pasando diet 
+como prop. 
+
+=> Explicacion del rest operator en components:
+
+The components are working well together, but there’s a slight inefficiency
+in AnimalCard. You are explicitly pulling diet out from the props
+argument, but you aren’t using the data. Instead, you are passing it through
+to the component.
+Whenever you want to pass new data to AnimalDetails , you need to update three places: 
+App, where you pass the props, AnimalDetails, which consumes the prop, and 
+AnimalCard , which is the go-between.
+A better way is to gather any unused props inside AnimalCard and then pass
+those directly to AnimalDetails. This gives you the chance to make
+changes to AnimalDetails without changing AnimalCard.
+To do that, you’ll use the object rest operator (...). This operator collects any
+items that are not pulled out during destructuring and saves them into a new
+object.
+Up till now, you’ve passed all props as if they were HTML attributes, but
+you can also use objects to send props. To use an object as a prop, you need
+to use the spread operator— ...props —surrounded with curly braces. This
+will change each key-value pair into a prop.
